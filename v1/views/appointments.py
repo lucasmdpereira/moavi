@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.views import View
 from datetime import datetime
+from pytz import timezone
 from v1.models import Appointments
 
 
@@ -16,6 +17,7 @@ class AppointmentsView(View):
         if search_query:
             appointments = cls.filter_appointments(appointments, search_query)
 
+        print(appointments[0].scheduling)
         context = {
             'appointments': appointments,
             'search_query': search_query,
@@ -25,11 +27,10 @@ class AppointmentsView(View):
     @classmethod
     def filter_appointments(cls, appointments, search_query):
         try:
-            date_query = datetime.strptime(search_query, '%Y-%m-%d').date()
+            date_query = datetime.strptime(search_query, '%Y-m-%d').date()
             return appointments.filter(scheduling__date=date_query)
         except ValueError:
             return appointments.filter(
                 Q(created_by__file_name__icontains=search_query) |
                 Q(registration_id__icontains=str(search_query))
             )
-

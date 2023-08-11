@@ -37,8 +37,8 @@
                             <tr>
                                 <td>{{ appointment.created_by.file_name }}</td>
                                 <td>{{ appointment.registration_id }}</td>
-                                <td>{{ appointment.scheduling|timezone:"America/Sao_Paulo"|date:"Y-m-d" }}</td>
-                                <td>{{ appointment.scheduling|timezone:"America/Sao_Paulo"|time:"H:i" }}</td>
+                                <td>{{ appointment.scheduling|date:"Y-m-d" }}</td>
+                                <td>{{ appointment.scheduling|time:"H:i" }}</td>
                             </tr>
                         {% empty %}
                             <tr>
