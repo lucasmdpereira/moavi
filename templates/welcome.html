@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moavi - Bem-vindo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-md-6 text-center">
+                <h1>Olá, {{ user.username|capfirst }} o que você deseja fazer hoje?</h1>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="{% url 'consumptions' %}">Consumos (Importar e visualizar importações)</a></li>
+                    <li class="list-group-item"><a href="{% url 'appointments' %}">Tabela de Marcações de Ponto</a></li>
+                    <li class="list-group-item"><a href="{% url 'schedules' %}">Visualização Gráfica de Escala</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+

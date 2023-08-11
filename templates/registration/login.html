@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="col-md-6">
+        <h2 class="text-center">Login</h2>
+        <form method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" name="{{ field.html_name }}" value="{{ field.value|default_if_none:'' }}">
+            {% if field.errors %}
+              <div class="invalid-feedback">
+                {{ field.errors|join:", " }}
+              </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

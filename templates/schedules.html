@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        #chart-container {
+            width: 80%;
+            height: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <div class="row mt-3">
+                    <a href="{% url 'welcome' %}" class="btn btn-link mt-2">Voltar a página inicial</a>
+                </div>
+                <form method="get" action="{% url 'schedules' %}" class="form-inline">
+                    <label for="date" class="mr-2">Selecionar data:</label>
+                    <input type="date" id="date" name="date" value="{{ date|date:"Y-m-d" }}" class="form-control mr-2">
+                    <input type="submit" value="Buscar" class="btn btn-primary">
+                </form>
+                <div id="chart-container" class="mt-4">
+                    <canvas id="myChart" width="200" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                label: 'Número de Agendamentos',
+                data: {{ data|safe }},
+                backgroundColor: 'blue',
+                barThickness: 'flex',
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Horário'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Quantidade'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
