@@ -1,5 +1,5 @@
 """
-URL configuration for cogsworth_api project.
+URL configuration for white_rabbit_api project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
