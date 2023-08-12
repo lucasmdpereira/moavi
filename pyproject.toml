@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "cogsworth-api"
+name = "white_rabbit_api"
 version = "0.1.0"
 description = ""
-authors = ["Lucas Pereira <lpereira@nilo.co>"]
+authors = ["Lucas Pereira <lucasmdpereira@gmail.com>"]
 readme = "README.md"
-packages = [{include = "cogsworth_api"}]
+packages = [{include = "white_rabbit_api"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
