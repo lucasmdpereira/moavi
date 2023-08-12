@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.views import View
 from datetime import datetime
-from pytz import timezone
 from v1.models import Appointments
-
+from django.db.models.functions import Cast
+from django.db.models import DateField
 
 class AppointmentsView(View):
     template_name = 'appointments.html'
@@ -17,7 +17,6 @@ class AppointmentsView(View):
         if search_query:
             appointments = cls.filter_appointments(appointments, search_query)
 
-        print(appointments[0].scheduling)
         context = {
             'appointments': appointments,
             'search_query': search_query,
@@ -27,8 +26,9 @@ class AppointmentsView(View):
     @classmethod
     def filter_appointments(cls, appointments, search_query):
         try:
-            date_query = datetime.strptime(search_query, '%Y-m-%d').date()
-            return appointments.filter(scheduling__date=date_query)
+            date_query = datetime.strptime(search_query, '%Y-%m-%d').date()
+            # Use a Cast para extrair a data do campo DateTime
+            return appointments.annotate(date_only=Cast('scheduling', DateField())).filter(date_only=date_query)
         except ValueError:
             return appointments.filter(
                 Q(created_by__file_name__icontains=search_query) |
